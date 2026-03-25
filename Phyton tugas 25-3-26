@@ -1,0 +1,220 @@
+#soal_1a
+class Node:
+    def __init__(self, digit):
+        self.digit = digit
+        self.next = None
+
+class BigInteger:
+    def __init__(self, initValue="0"):
+        self.head = None
+        # Simpan digit terbalik (least significant dulu)
+        for ch in initValue:
+            if ch == '-':
+                continue
+            node = Node(int(ch))
+            node.next = self.head
+            self.head = node
+        self.negative = initValue.startswith('-')
+
+    def toString(self):
+        digits = []
+        curr = self.head
+        while curr:
+            digits.append(str(curr.digit))
+            curr = curr.next
+        result = ''.join(reversed(digits))
+        return ('-' + result) if self.negative else result
+
+    def _toInt(self):
+        return int(self.toString())
+
+    def comparable(self, other):
+        return self._toInt() - other._toInt()
+
+    def __lt__(self, other): return self.comparable(other) < 0
+    def __le__(self, other): return self.comparable(other) <= 0
+    def __gt__(self, other): return self.comparable(other) > 0
+    def __ge__(self, other): return self.comparable(other) >= 0
+    def __eq__(self, other): return self.comparable(other) == 0
+    def __ne__(self, other): return self.comparable(other) != 0
+
+    def arithmetic(self, rhsInt, op):
+        a = self._toInt()
+        b = rhsInt._toInt()
+        if op == '+':   result = a + b
+        elif op == '-': result = a - b
+        elif op == '*': result = a * b
+        elif op == '//':result = a // b
+        elif op == '%': result = a % b
+        elif op == '**':result = a ** b
+        else: raise ValueError("Operator tidak dikenal")
+        return BigInteger(str(result))
+
+    def bitwise_ops(self, rhsInt, op):
+        a = self._toInt()
+        b = rhsInt._toInt()
+        if op == '|':   result = a | b
+        elif op == '&': result = a & b
+        elif op == '^': result = a ^ b
+        elif op == '<<':result = a << b
+        elif op == '>>':result = a >> b
+        else: raise ValueError("Operator tidak dikenal")
+        return BigInteger(str(result))
+
+
+# === TEST ===
+a = BigInteger("45839")
+b = BigInteger("123")
+print("a =", a.toString())
+print("b =", b.toString())
+print("a + b =", a.arithmetic(b, '+').toString())
+print("a * b =", a.arithmetic(b, '*').toString())
+print("a > b ?", a > b)
+print("a & b =", a.bitwise_ops(b, '&').toString())
+print("____________________________")
+
+#soal_1b
+class BigInteger:
+    def __init__(self, initValue="0"):
+        self.negative = initValue.startswith('-')
+        val = initValue.lstrip('-')
+        # Simpan digit terbalik (index 0 = least significant)
+        self.digits = [int(d) for d in reversed(val)]
+
+    def toString(self):
+        result = ''.join(str(d) for d in reversed(self.digits))
+        return ('-' + result) if self.negative else result
+
+    def _toInt(self):
+        return int(self.toString())
+
+    def comparable(self, other):
+        return self._toInt() - other._toInt()
+
+    def __lt__(self, other): return self.comparable(other) < 0
+    def __le__(self, other): return self.comparable(other) <= 0
+    def __gt__(self, other): return self.comparable(other) > 0
+    def __ge__(self, other): return self.comparable(other) >= 0
+    def __eq__(self, other): return self.comparable(other) == 0
+    def __ne__(self, other): return self.comparable(other) != 0
+
+    def arithmetic(self, rhsInt, op):
+        a = self._toInt()
+        b = rhsInt._toInt()
+        if op == '+':   result = a + b
+        elif op == '-': result = a - b
+        elif op == '*': result = a * b
+        elif op == '//':result = a // b
+        elif op == '%': result = a % b
+        elif op == '**':result = a ** b
+        else: raise ValueError("Operator tidak dikenal")
+        return BigInteger(str(result))
+
+    def bitwise_ops(self, rhsInt, op):
+        a = self._toInt()
+        b = rhsInt._toInt()
+        if op == '|':   result = a | b
+        elif op == '&': result = a & b
+        elif op == '^': result = a ^ b
+        elif op == '<<':result = a << b
+        elif op == '>>':result = a >> b
+        else: raise ValueError("Operator tidak dikenal")
+        return BigInteger(str(result))
+
+
+# === TEST ===
+a = BigInteger("45839")
+b = BigInteger("123")
+print("a =", a.toString())
+print("b =", b.toString())
+print("a + b =", a.arithmetic(b, '+').toString())
+print("a - b =", a.arithmetic(b, '-').toString())
+print("a == b ?", a == b)
+print("_______________________")
+
+#soal_2
+class BigInteger:
+    def __init__(self, initValue="0"):
+        self.negative = initValue.startswith('-')
+        val = initValue.lstrip('-')
+        self.digits = [int(d) for d in reversed(val)]
+
+    def toString(self):
+        result = ''.join(str(d) for d in reversed(self.digits))
+        return ('-' + result) if self.negative else result
+
+    def _toInt(self):
+        return int(self.toString())
+
+    def comparable(self, other):
+        return self._toInt() - other._toInt()
+
+    def __lt__(self, other): return self.comparable(other) < 0
+    def __le__(self, other): return self.comparable(other) <= 0
+    def __gt__(self, other): return self.comparable(other) > 0
+    def __ge__(self, other): return self.comparable(other) >= 0
+    def __eq__(self, other): return self.comparable(other) == 0
+    def __ne__(self, other): return self.comparable(other) != 0
+
+    def arithmetic(self, rhsInt, op):
+        a = self._toInt()
+        b = rhsInt._toInt()
+        if op == '+':    result = a + b
+        elif op == '-':  result = a - b
+        elif op == '*':  result = a * b
+        elif op == '//': result = a // b
+        elif op == '%':  result = a % b
+        elif op == '**': result = a ** b
+        else: raise ValueError("Operator tidak dikenal")
+        return BigInteger(str(result))
+
+    def bitwise_ops(self, rhsInt, op):
+        a = self._toInt()
+        b = rhsInt._toInt()
+        if op == '|':    result = a | b
+        elif op == '&':  result = a & b
+        elif op == '^':  result = a ^ b
+        elif op == '<<': result = a << b
+        elif op == '>>': result = a >> b
+        return BigInteger(str(result))
+
+    # === OPERATOR ASSIGNMENT (SOAL 2) ===
+    def __iadd__(self, other): return self.arithmetic(other, '+')
+    def __isub__(self, other): return self.arithmetic(other, '-')
+    def __imul__(self, other): return self.arithmetic(other, '*')
+    def __ifloordiv__(self, other): return self.arithmetic(other, '//')
+    def __imod__(self, other): return self.arithmetic(other, '%')
+    def __ipow__(self, other): return self.arithmetic(other, '**')
+    def __ilshift__(self, other): return self.bitwise_ops(other, '<<')
+    def __irshift__(self, other): return self.bitwise_ops(other, '>>')
+    def __ior__(self, other): return self.bitwise_ops(other, '|')
+    def __iand__(self, other): return self.bitwise_ops(other, '&')
+    def __ixor__(self, other): return self.bitwise_ops(other, '^')
+
+# === TEST ===
+a = BigInteger("100")
+b = BigInteger("25")
+
+a += b
+print("100 += 25 =", a.toString())   # 125
+
+a -= b
+print("125 -= 25 =", a.toString())   # 100
+
+a *= b
+print("100 *= 25 =", a.toString())   # 2500
+
+a //= b
+print("2500 //= 25 =", a.toString()) # 100
+
+a **= b
+print("100 **= 25 =", a.toString())  # angka sangat besar
+
+a = BigInteger("60")
+b = BigInteger("3")
+a <<= b
+print("60 <<= 3 =", a.toString())    # 480
+
+a = BigInteger("60")
+a >>= b
+print("60 >>= 3 =", a.toString())    # 7
